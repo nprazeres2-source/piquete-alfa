@@ -112,11 +112,13 @@ input[type=text],input[type=number],input[type=date],select,textarea{
 textarea{resize:vertical;min-height:60px;}
 .row2{display:flex;gap:10px;}
 .row2 > *{flex:1;min-width:0;}
-.member-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);}
-.member-row:last-child{border-bottom:none;}
+.member-row{display:flex;align-items:center;gap:10px;padding:9px 0;}
+.member-row-block{border-bottom:1px solid var(--line);}
+.member-row-block:last-child{border-bottom:none;}
 .member-row .nm{flex:1;font-size:14px;font-weight:500;}
 .member-row .code{font-family:var(--font-mono);font-size:11px;color:var(--grey-badge);display:block;}
 .member-row select{width:118px;flex:none;font-size:13.5px;padding:8px;}
+.troca-input{font-size:13.5px;padding:8px 10px;}
 
 /* Modal */
 .overlay{position:fixed;inset:0;background:rgba(20,24,30,0.55);z-index:40;display:flex;align-items:flex-end;justify-content:center;}
@@ -272,23 +274,23 @@ const DEFAULT_DATES = ["2026-01-06","2026-01-14","2026-01-22","2026-01-30","2026
 "2026-10-19","2026-10-27","2026-11-03","2026-11-11","2026-11-19","2026-11-27","2026-12-03","2026-12-11","2026-12-21","2026-12-30"];
 
 const DEFAULT_MEMBERS = [
-  {id:"schf",code:"SCHF-E",name:"Chefe de equipa",target:200},
-  {id:"m2",code:"2",name:"Elemento 2",target:200},
-  {id:"m51",code:"51",name:"Elemento 51",target:200},
-  {id:"m14",code:"14",name:"Elemento 14",target:200},
-  {id:"m23",code:"23",name:"Elemento 23",target:200},
-  {id:"m33",code:"33",name:"Elemento 33",target:200},
-  {id:"m5",code:"5",name:"Elemento 5",target:200},
-  {id:"m44",code:"44",name:"Elemento 44",target:200}
+  {id:"schf",code:"SCHF-E",name:"Chefe de equipa",target:200,ativo:true},
+  {id:"m2",code:"2",name:"Elemento 2",target:200,ativo:true},
+  {id:"m51",code:"51",name:"Elemento 51",target:200,ativo:true},
+  {id:"m14",code:"14",name:"Elemento 14",target:200,ativo:true},
+  {id:"m23",code:"23",name:"Elemento 23",target:200,ativo:true},
+  {id:"m33",code:"33",name:"Elemento 33",target:200,ativo:true},
+  {id:"m5",code:"5",name:"Elemento 5",target:200,ativo:true},
+  {id:"m44",code:"44",name:"Elemento 44",target:200,ativo:true}
 ];
 
 function blankSession(date){
-  return {id:crypto.randomUUID(),date:date,att:{},ur:"",sub1:"",sub2:"",outros:"",carater:"",areaFunc:"",tema:"",instrucao:"",duracao:"",obs:""};
+  return {id:crypto.randomUUID(),date:date,att:{},trocaCom:{},ur:"",sub1:"",sub2:"",outros:"",carater:"",areaFunc:"",tema:"",instrucao:"",duracao:"",obs:""};
 }
 const SEED_FILLED = [
   {att:{schf:"P",m2:"P",m51:"FJ",m14:"P",m23:"P",m33:"P",m5:"P",m44:"P"},ur:"1",sub1:"SCHF-E/36",carater:"NA"},
   {att:{schf:"P",m2:"P",m51:"P",m14:"P",m23:"P",m33:"P",m5:"P",m44:"P"},outros:"EvacMar",carater:"TE",areaFunc:"EPH",tema:"Avaliação da vítima",instrucao:"XABCDE Exame secundário",duracao:1,obs:"51/14"},
-  {att:{schf:"P",m2:"P",m51:"P",m14:"P",m23:"T",m33:"P",m5:"FJ",m44:"P"},carater:"TP",areaFunc:"INCE",tema:"Aparelhos respiratórios",instrucao:"Treino ARICA envergado, orientação sem visibilidade, plano teórico ARICA",duracao:3,obs:"23 trocou 01"},
+  {att:{schf:"P",m2:"P",m51:"P",m14:"P",m23:"T",m33:"P",m5:"FJ",m44:"P"},trocaCom:{m23:"01"},carater:"TP",areaFunc:"INCE",tema:"Aparelhos respiratórios",instrucao:"Treino ARICA envergado, orientação sem visibilidade, plano teórico ARICA",duracao:3,obs:"23 trocou 01"},
   {att:{schf:"P",m2:"P",m51:"P",m14:"P",m23:"P",m33:"P",m5:"FJ",m44:"P"},carater:"TE",areaFunc:"VEIC",tema:"Manobra de veículos",instrucao:"Técnicas condução defensiva",duracao:2},
   {att:{schf:"P",m2:"P",m51:"P",m14:"FJ",m23:"P",m33:"P",m5:"P",m44:"P"},carater:"PT",areaFunc:"PFEF",tema:"Corpo de Bombeiros",instrucao:"Treino físico funcional",duracao:1},
   {att:{schf:"P",m2:"P",m51:"P",m14:"FJ",m23:"P",m33:"P",m5:"P",m44:"P"},carater:"NA"},
@@ -323,6 +325,9 @@ function load(){
     if(raw){
       const data = JSON.parse(raw);
       if(!data.physFolks){ data.physFolks = seedFisicaPeople(); }
+      (data.members||[]).forEach(m=>{ if(m.ativo===undefined) m.ativo = true; });
+      (data.sessions||[]).forEach(s=>{ if(!s.trocaCom) s.trocaCom = {}; });
+      (data.ocorrencias||[]).forEach(o=>{ if(!o.envolvidos) o.envolvidos = []; if(o.outrosEnvolvidos==null) o.outrosEnvolvidos=''; });
       return data;
     }
   }catch(e){}
@@ -350,6 +355,7 @@ function fmtDateFull(iso){
   return d.getDate()+" "+MESES[d.getMonth()]+" "+d.getFullYear();
 }
 function memberById(id){ return state.members.find(m=>m.id===id); }
+function activeMembers(){ return state.members.filter(m=>m.ativo!==false); }
 function sessionsSorted(){ return [...state.sessions].sort((a,b)=>a.date.localeCompare(b.date)); }
 function isFuture(iso){ return iso > new Date().toISOString().slice(0,10); }
 function sessionIsFilled(s){ return !!(s.areaFunc || s.instrucao || Object.values(s.att||{}).some(v=>v)); }
@@ -391,13 +397,14 @@ let activeTab = "registo";
 function setTab(tab){
   activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
-  document.getElementById('fabBtn').style.display = (tab==='registo'||tab==='instrucoes'||tab==='ocorrencias'||tab==='fisica') ? 'flex' : 'none';
+  document.getElementById('fabBtn').style.display = (tab==='registo'||tab==='instrucoes'||tab==='equipa'||tab==='ocorrencias'||tab==='fisica') ? 'flex' : 'none';
   render();
 }
 document.querySelectorAll('.tab-btn').forEach(b=> b.addEventListener('click', ()=>setTab(b.dataset.tab)) );
 document.getElementById('fabBtn').addEventListener('click', ()=>{
   if(activeTab==='registo') openSessionModal(null);
   else if(activeTab==='instrucoes') openInstrucaoModal(null);
+  else if(activeTab==='equipa') openNewMemberModal();
   else if(activeTab==='ocorrencias') openOcorrenciaModal(null);
   else if(activeTab==='fisica') openFisicaAddPersonModal();
 });
@@ -423,10 +430,13 @@ function renderRegisto(){
   const items = list.map(s=>{
     const {d,m} = fmtDateShort(s.date);
     const filled = sessionIsFilled(s);
-    const dots = state.members.map(mem=>{
+    const dots = activeMembers().map(mem=>{
       const st = (s.att && s.att[mem.id]) || 'none';
-      return `<span class="dot ${st}" title="${mem.name}: ${ATT[st]||'—'}"></span>`;
+      const partner = (s.trocaCom && s.trocaCom[mem.id]) ? ' com '+s.trocaCom[mem.id] : '';
+      return `<span class="dot ${st}" title="${mem.name}: ${ATT[st]||'—'}${partner}"></span>`;
     }).join('');
+    const trocas = activeMembers().filter(mem=> (s.att&&s.att[mem.id])==='T')
+      .map(mem=> `${mem.code} troca com ${ (s.trocaCom&&s.trocaCom[mem.id]) || '?' }`);
     const title = filled ? (s.tema || AREA_FUNC[s.areaFunc] || 'Serviço registado') : 'Sem registo de instrução';
     const metaBits = [];
     if(s.areaFunc) metaBits.push(AREA_FUNC[s.areaFunc]);
@@ -437,6 +447,7 @@ function renderRegisto(){
         <div class="tt">${filled? escapeHtml(title) : '<span class="badge-empty">Por preencher</span>'}</div>
         ${metaBits.length? `<div class="meta">${escapeHtml(metaBits.join(' · '))}</div>`:''}
         <div class="dots">${dots}</div>
+        ${trocas.length? `<div class="meta" style="margin-top:6px;">${escapeHtml(trocas.join(' · '))}</div>`:''}
       </div>
     </div>`;
   }).join('');
@@ -450,96 +461,63 @@ function renderRegisto(){
 function openSessionModal(sessionId){
   let s = sessionId ? state.sessions.find(x=>x.id===sessionId) : blankSession(new Date().toISOString().slice(0,10));
   const isNew = !sessionId;
-  const areaOptions = `<option value="">—</option>` + Object.keys(AREA_FUNC).map(k=>`<option value="${k}" ${s.areaFunc===k?'selected':''}>${k} — ${AREA_FUNC[k]}</option>`).join('');
-  const memberRows = state.members.map(m=>{
+  const memberRows = activeMembers().map(m=>{
     const val = (s.att && s.att[m.id]) || '';
-    return `<div class="member-row">
-      <div class="nm">${escapeHtml(m.name)}<span class="code">${m.code}</span></div>
-      <select data-member="${m.id}" class="att-select">
-        ${Object.keys(ATT).map(k=>`<option value="${k}" ${val===k?'selected':''}>${ATT[k]}</option>`).join('')}
-      </select>
+    const trocaVal = (s.trocaCom && s.trocaCom[m.id]) || '';
+    const baseOptions = ['','P','T'];
+    const extraLegacy = (val && !baseOptions.includes(val)) ? [val] : [];
+    const optionKeys = [...baseOptions, ...extraLegacy];
+    return `<div class="member-row-block" data-member="${m.id}">
+      <div class="member-row" style="border-bottom:none;">
+        <div class="nm">${escapeHtml(m.name)}<span class="code">${m.code}</span></div>
+        <select data-member="${m.id}" class="att-select">
+          ${optionKeys.map(k=>`<option value="${k}" ${val===k?'selected':''}>${k===''?'—':(ATT[k]||k)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="troca-with" data-member="${m.id}" style="display:${val==='T'?'block':'none'};padding:0 0 9px;">
+        <input type="text" class="troca-input" data-member="${m.id}" value="${escapeAttr(trocaVal)}" placeholder="Troca com... (nome ou nº)">
+      </div>
     </div>`;
   }).join('');
   const html = `
   <div class="overlay" id="sessOverlay">
     <div class="sheet">
       <div class="sheet-head"><h2>${fmtDateFull(s.date)}</h2><button id="closeSess">&times;</button></div>
-      <label>Presenças</label>
+      <label style="margin-top:0;">Presenças e trocas</label>
       <div class="card" style="padding:4px 12px;">${memberRows}</div>
-
-      <hr class="dash">
-      <label>Nº de substitutos (UR)</label>
-      <input type="number" min="0" id="f_ur" value="${s.ur||''}">
-      <div class="row2">
-        <div><label>1ª substituição</label><input type="text" id="f_sub1" value="${escapeAttr(s.sub1)}" placeholder="ex: SCHF-E/36"></div>
-        <div><label>2ª substituição</label><input type="text" id="f_sub2" value="${escapeAttr(s.sub2)}"></div>
-      </div>
-      <label>Outros / observações da troca</label>
-      <input type="text" id="f_outros" value="${escapeAttr(s.outros)}">
-
-      <hr class="dash">
-      <label>Caráter</label>
-      <select id="f_carater">${Object.keys(CARATER).map(k=>`<option value="${k}" ${s.carater===k?'selected':''}>${CARATER[k]}</option>`).join('')}</select>
-
-      <label>Área funcional</label>
-      <select id="f_area">${areaOptions}</select>
-
-      <label>Tema</label>
-      <select id="f_tema"></select>
-
-      <label>Instrução (descrição)</label>
-      <textarea id="f_instrucao" placeholder="Descreva o conteúdo da instrução...">${escapeHtml(s.instrucao||'')}</textarea>
-
-      <label>Duração (horas)</label>
-      <input type="number" min="0" step="0.5" id="f_duracao" value="${s.duracao||''}">
-
-      <label>Observações gerais</label>
-      <textarea id="f_obs">${escapeHtml(s.obs||'')}</textarea>
+      <div class="view-hint" style="margin:10px 2px 0;">A instrução deste dia (área, tema, duração, etc.) é registada no separador "Instruções".</div>
 
       <div class="sheet-actions">
         <button class="btn btn-primary btn-block" id="saveSess">Guardar</button>
       </div>
-      ${!isNew? `<div class="sheet-actions"><button class="btn btn-ghost btn-block" id="clearSess">Limpar este registo</button></div>`:''}
+      ${!isNew? `<div class="sheet-actions"><button class="btn btn-ghost btn-block" id="clearSess">Limpar presenças deste dia</button></div>`:''}
     </div>
   </div>`;
   document.getElementById('modalRoot').innerHTML = html;
-  function populateTema(){
-    const area = document.getElementById('f_area').value;
-    const temaSel = document.getElementById('f_tema');
-    const list = TEMA_MAP[area] || [];
-    temaSel.innerHTML = `<option value="">—</option>` + list.map(t=>`<option value="${escapeAttr(t)}" ${s.tema===t?'selected':''}>${escapeHtml(t)}</option>`).join('');
-    if(!list.length) temaSel.disabled = true; else temaSel.disabled = false;
-  }
-  populateTema();
-  document.getElementById('f_area').addEventListener('change', populateTema);
+  document.querySelectorAll('.att-select').forEach(sel=>{
+    sel.addEventListener('change', ()=>{
+      const box = document.querySelector(`.troca-with[data-member="${sel.dataset.member}"]`);
+      if(box) box.style.display = sel.value==='T' ? 'block' : 'none';
+    });
+  });
   document.getElementById('closeSess').addEventListener('click', closeModal);
   document.getElementById('sessOverlay').addEventListener('click', e=>{ if(e.target.id==='sessOverlay') closeModal(); });
   document.getElementById('saveSess').addEventListener('click', ()=>{
-    const att = {};
+    const att = {}; const trocaCom = {};
     document.querySelectorAll('.att-select').forEach(sel=>{ att[sel.dataset.member] = sel.value; });
-    const updated = {
-      ...s, att,
-      ur:document.getElementById('f_ur').value,
-      sub1:document.getElementById('f_sub1').value,
-      sub2:document.getElementById('f_sub2').value,
-      outros:document.getElementById('f_outros').value,
-      carater:document.getElementById('f_carater').value,
-      areaFunc:document.getElementById('f_area').value,
-      tema:document.getElementById('f_tema').value,
-      instrucao:document.getElementById('f_instrucao').value,
-      duracao:document.getElementById('f_duracao').value,
-      obs:document.getElementById('f_obs').value
-    };
+    document.querySelectorAll('.troca-input').forEach(inp=>{
+      if(att[inp.dataset.member]==='T') trocaCom[inp.dataset.member] = inp.value;
+    });
+    const updated = { ...s, att, trocaCom };
     const idx = state.sessions.findIndex(x=>x.id===s.id);
     if(idx>=0) state.sessions[idx] = updated; else state.sessions.push(updated);
     save(); closeModal(); render(); toast('Registo guardado');
   });
   if(!isNew){
     document.getElementById('clearSess').addEventListener('click', ()=>{
-      if(!confirm('Limpar todos os dados deste dia?')) return;
-      const idx = state.sessions.findIndex(x=>x.id===s.id);
-      state.sessions[idx] = blankSession(s.date);
-      save(); closeModal(); render(); toast('Registo limpo');
+      if(!confirm('Limpar as presenças e trocas deste dia? A instrução registada mantém-se.')) return;
+      s.att = {}; s.trocaCom = {};
+      save(); closeModal(); render(); toast('Presenças limpas');
     });
   }
 }
@@ -657,13 +635,18 @@ function openInstrucaoModal(sessionId){
    TAB: EQUIPA
    ========================================================= */
 function renderEquipa(){
-  const rows = state.members.map(m=>{
+  const sorted = [...state.members].sort((a,b)=> (b.ativo!==false) - (a.ativo!==false));
+  const rows = sorted.map(m=>{
+    const inativo = m.ativo===false;
     const p = countByStatus(m.id,'P'), fj = countByStatus(m.id,'FJ'), f = countByStatus(m.id,'F'), t = countByStatus(m.id,'T');
     const horas = hoursDoneByMember(m.id);
     const pct = Math.min(100, Math.round((horas/(m.target||200))*100));
-    return `<div class="card" data-mid="${m.id}">
-      <div style="display:flex;justify-content:space-between;align-items:baseline;">
-        <div><strong>${escapeHtml(m.name)}</strong> <span class="chip">${m.code}</span></div>
+    const statusChip = inativo
+      ? `<span class="chip" style="color:var(--grey-badge);">Inativo</span>`
+      : `<span class="chip" style="color:var(--green);border-color:var(--green);">Ativo</span>`;
+    return `<div class="card" data-mid="${m.id}" style="${inativo?'opacity:0.6;':''}">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;">
+        <div><strong>${escapeHtml(m.name)}</strong> <span class="chip">${escapeHtml(m.code)}</span> ${statusChip}</div>
         <button class="btn btn-ghost btn-sm edit-member">Editar</button>
       </div>
       <div style="display:flex;gap:16px;margin-top:10px;font-size:13px;color:var(--ink-soft);flex-wrap:wrap;">
@@ -678,25 +661,53 @@ function renderEquipa(){
   }).join('');
   return `
     <div class="view-title">Equipa</div>
-    <div class="view-hint">Presenças e horas de instrução acumuladas por elemento. Toca em "Editar" para ajustar o nome ou a meta anual.</div>
+    <div class="view-hint">Presenças e horas de instrução acumuladas por elemento. Elementos "Inativos" deixam de aparecer no Registo e nas Ocorrências. Toca em "+" para adicionar um elemento, ou em "Editar" para ajustar dados e estado.</div>
     <div class="section">${rows}</div>
   `;
 }
 function openMemberModal(mid){
   const m = memberById(mid);
   const html = `<div class="overlay" id="memOverlay"><div class="sheet">
-    <div class="sheet-head"><h2>${m.code}</h2><button id="closeMem">&times;</button></div>
+    <div class="sheet-head"><h2>${escapeHtml(m.name)}</h2><button id="closeMem">&times;</button></div>
     <label>Nome</label><input type="text" id="f_mname" value="${escapeAttr(m.name)}">
+    <label>Código / nº de elemento</label><input type="text" id="f_mcode" value="${escapeAttr(m.code)}">
     <label>Meta anual de horas</label><input type="number" min="0" id="f_mtarget" value="${m.target||200}">
+    <label>Estado</label>
+    <select id="f_mativo">
+      <option value="1" ${m.ativo!==false?'selected':''}>Ativo</option>
+      <option value="0" ${m.ativo===false?'selected':''}>Inativo — não aparece no Registo nem nas Ocorrências</option>
+    </select>
     <div class="sheet-actions"><button class="btn btn-primary btn-block" id="saveMem">Guardar</button></div>
   </div></div>`;
   document.getElementById('modalRoot').innerHTML = html;
   document.getElementById('closeMem').addEventListener('click', closeModal);
   document.getElementById('memOverlay').addEventListener('click', e=>{ if(e.target.id==='memOverlay') closeModal(); });
   document.getElementById('saveMem').addEventListener('click', ()=>{
-    m.name = document.getElementById('f_mname').value || m.name;
+    m.name = document.getElementById('f_mname').value.trim() || m.name;
+    m.code = document.getElementById('f_mcode').value.trim() || m.code;
     m.target = Number(document.getElementById('f_mtarget').value) || 200;
+    m.ativo = document.getElementById('f_mativo').value === '1';
     save(); closeModal(); render(); toast('Elemento atualizado');
+  });
+}
+function openNewMemberModal(){
+  const html = `<div class="overlay" id="newMemOverlay"><div class="sheet">
+    <div class="sheet-head"><h2>Novo elemento</h2><button id="closeNewMem">&times;</button></div>
+    <label>Nome</label><input type="text" id="nm_name" placeholder="Nome do elemento">
+    <label>Código / nº de elemento</label><input type="text" id="nm_code" placeholder="ex: 12">
+    <label>Meta anual de horas</label><input type="number" min="0" id="nm_target" value="200">
+    <div class="sheet-actions"><button class="btn btn-primary btn-block" id="saveNewMem">Adicionar</button></div>
+  </div></div>`;
+  document.getElementById('modalRoot').innerHTML = html;
+  document.getElementById('closeNewMem').addEventListener('click', closeModal);
+  document.getElementById('newMemOverlay').addEventListener('click', e=>{ if(e.target.id==='newMemOverlay') closeModal(); });
+  document.getElementById('saveNewMem').addEventListener('click', ()=>{
+    const name = document.getElementById('nm_name').value.trim();
+    if(!name){ alert('Indica um nome.'); return; }
+    const code = document.getElementById('nm_code').value.trim() || '—';
+    const target = Number(document.getElementById('nm_target').value) || 200;
+    state.members.push({id:crypto.randomUUID(), code, name, target, ativo:true});
+    save(); closeModal(); render(); toast('Elemento adicionado');
   });
 }
 
@@ -706,10 +717,13 @@ function openMemberModal(mid){
 function renderOcorrencias(){
   const list = [...state.ocorrencias].sort((a,b)=>b.date.localeCompare(a.date));
   const items = list.map(o=>{
+    const names = (o.envolvidos||[]).map(id=>{ const m=memberById(id); return m? m.name : id; });
+    if(o.outrosEnvolvidos) names.push(o.outrosEnvolvidos);
     return `<div class="card sess" data-oid="${o.id}">
       <div class="body">
         <div class="tt">${OCOR_TIPOS[o.tipo]||o.tipo}</div>
         <div class="meta">${fmtDateFull(o.date)}${o.obs? ' · '+escapeHtml(o.obs):''}</div>
+        ${names.length? `<div class="meta" style="margin-top:4px;">Envolvidos: ${escapeHtml(names.join(', '))}</div>`:''}
       </div>
     </div>`;
   }).join('') || `<div class="empty"><div class="ic">—</div>Sem ocorrências registadas.</div>`;
@@ -728,12 +742,23 @@ function renderOcorrencias(){
   `;
 }
 function openOcorrenciaModal(oid){
-  const o = oid ? state.ocorrencias.find(x=>x.id===oid) : {id:crypto.randomUUID(),date:new Date().toISOString().slice(0,10),tipo:'ACID',obs:''};
+  const o = oid ? state.ocorrencias.find(x=>x.id===oid) : {id:crypto.randomUUID(),date:new Date().toISOString().slice(0,10),tipo:'ACID',obs:'',envolvidos:[],outrosEnvolvidos:''};
   const isNew = !oid;
+  const memberChecks = activeMembers().map(m=>{
+    const checked = (o.envolvidos||[]).includes(m.id);
+    return `<label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:14px;color:var(--ink);margin:0;padding:7px 0;border-bottom:1px solid var(--line);">
+      <input type="checkbox" class="oc-envolvido" value="${m.id}" ${checked?'checked':''} style="width:auto;">
+      ${escapeHtml(m.name)} <span class="chip">${m.code}</span>
+    </label>`;
+  }).join('');
   const html = `<div class="overlay" id="ocOverlay"><div class="sheet">
     <div class="sheet-head"><h2>${isNew?'Nova ocorrência':'Editar ocorrência'}</h2><button id="closeOc">&times;</button></div>
     <label>Data</label><input type="date" id="f_odate" value="${o.date}">
     <label>Tipo</label><select id="f_otipo">${Object.keys(OCOR_TIPOS).map(k=>`<option value="${k}" ${o.tipo===k?'selected':''}>${OCOR_TIPOS[k]}</option>`).join('')}</select>
+    <label>Quem esteve envolvido</label>
+    <div class="card" style="padding:2px 12px;">${memberChecks}</div>
+    <label>Outros envolvidos (fora da equipa)</label>
+    <input type="text" id="f_ooutros" value="${escapeAttr(o.outrosEnvolvidos)}" placeholder="ex: bombeiro de outra corporação">
     <label>Observações</label><textarea id="f_oobs">${escapeHtml(o.obs||'')}</textarea>
     <div class="sheet-actions"><button class="btn btn-primary btn-block" id="saveOc">Guardar</button></div>
     ${!isNew?`<div class="sheet-actions"><button class="btn btn-danger btn-block" id="delOc">Eliminar</button></div>`:''}
@@ -742,7 +767,9 @@ function openOcorrenciaModal(oid){
   document.getElementById('closeOc').addEventListener('click', closeModal);
   document.getElementById('ocOverlay').addEventListener('click', e=>{ if(e.target.id==='ocOverlay') closeModal(); });
   document.getElementById('saveOc').addEventListener('click', ()=>{
-    const updated = {...o, date:document.getElementById('f_odate').value, tipo:document.getElementById('f_otipo').value, obs:document.getElementById('f_oobs').value};
+    const envolvidos = Array.from(document.querySelectorAll('.oc-envolvido:checked')).map(c=>c.value);
+    const updated = {...o, date:document.getElementById('f_odate').value, tipo:document.getElementById('f_otipo').value,
+      envolvidos, outrosEnvolvidos:document.getElementById('f_ooutros').value, obs:document.getElementById('f_oobs').value};
     const idx = state.ocorrencias.findIndex(x=>x.id===o.id);
     if(idx>=0) state.ocorrencias[idx] = updated; else state.ocorrencias.push(updated);
     save(); closeModal(); render(); toast('Ocorrência guardada');
