@@ -464,7 +464,7 @@ function openSessionModal(sessionId){
   const memberRows = activeMembers().map(m=>{
     const val = (s.att && s.att[m.id]) || '';
     const trocaVal = (s.trocaCom && s.trocaCom[m.id]) || '';
-    const baseOptions = ['','P','T'];
+    const baseOptions = ['','P','FJ','F','T'];
     const extraLegacy = (val && !baseOptions.includes(val)) ? [val] : [];
     const optionKeys = [...baseOptions, ...extraLegacy];
     return `<div class="member-row-block" data-member="${m.id}">
