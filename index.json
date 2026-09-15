@@ -1,0 +1,1376 @@
+{
+  "team": "ALFA",
+  "year": 2026,
+  "members": [
+    {
+      "id": "schf",
+      "code": "SCHF-E",
+      "name": "Bruno Azevedo",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "m2",
+      "code": "2",
+      "name": "Nuno Prazeres",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "m51",
+      "code": "51",
+      "name": "Carina Medeiros",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "m14",
+      "code": "14",
+      "name": "Edgar Freitas",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "m23",
+      "code": "23",
+      "name": "Rúben Santos",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "m33",
+      "code": "33",
+      "name": "Fábio Bettencourt",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "m5",
+      "code": "5",
+      "name": "Bruno Tavares",
+      "target": 200,
+      "ativo": false
+    },
+    {
+      "id": "m44",
+      "code": "44",
+      "name": "Filipe Duarte",
+      "target": 200,
+      "ativo": true
+    },
+    {
+      "id": "658a3ddc-5bdc-4f77-83d0-15ff1a3092ae",
+      "code": "24",
+      "name": "Rodrigo Martins",
+      "target": 200,
+      "ativo": true
+    }
+  ],
+  "sessions": [
+    {
+      "id": "7caca957-8fb5-449b-b466-125a548a7308",
+      "date": "2026-01-06",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "FJ",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "1",
+      "sub1": "SCHF-E/36",
+      "sub2": "",
+      "outros": "",
+      "carater": "NA",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "9b142b84-9bbb-488c-9497-a52549a8f885",
+      "date": "2026-01-14",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "EvacMar",
+      "carater": "TE",
+      "areaFunc": "EPH",
+      "tema": "Avaliação da vítima",
+      "instrucao": "XABCDE Exame secundário",
+      "duracao": 1,
+      "obs": "51/14",
+      "trocaCom": {}
+    },
+    {
+      "id": "c8b5f98e-a84c-4082-b1f0-a8bd903769dd",
+      "date": "2026-01-22",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "T",
+        "m33": "P",
+        "m5": "FJ",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "TP",
+      "areaFunc": "INCE",
+      "tema": "Aparelhos respiratórios",
+      "instrucao": "Treino ARICA envergado, orientação sem visibilidade, plano teórico ARICA",
+      "duracao": 3,
+      "obs": "23 trocou 01",
+      "trocaCom": {}
+    },
+    {
+      "id": "34651d7d-230a-4acc-bcd5-a43beecffc4e",
+      "date": "2026-01-30",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m5": "FJ",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "TE",
+      "areaFunc": "VEIC",
+      "tema": "Manobra de veículos",
+      "instrucao": "Técnicas condução defensiva",
+      "duracao": 2,
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "cfd393c4-e33d-4b30-9921-fc686db32ff5",
+      "date": "2026-02-09",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "FJ",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "PT",
+      "areaFunc": "PFEF",
+      "tema": "Corpo de Bombeiros",
+      "instrucao": "Treino físico funcional",
+      "duracao": 1,
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "fe9aca12-ff1c-4498-b16d-fd78595847b9",
+      "date": "2026-02-17",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "FJ",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "NA",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "c3e5a6a3-d1cc-4854-8bb8-ee6145372c8c",
+      "date": "2026-02-25",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "FJ",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "1",
+      "sub1": "02/14.",
+      "sub2": "",
+      "outros": "",
+      "carater": "NA",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "926c312e-a477-415b-8479-96a1c9793d24",
+      "date": "2026-03-05",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "FJ",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "2",
+      "sub1": "SCHF-E/23",
+      "sub2": "51/14",
+      "outros": "",
+      "carater": "PT",
+      "areaFunc": "OPS",
+      "tema": "Outro",
+      "instrucao": "Salvamento e Desencarceramento - acidente com duas viaturas e duas vítimas",
+      "duracao": 1,
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "e70d99e4-2c15-40cc-9d0d-a25863fb3395",
+      "date": "2026-03-13",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "FJ",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "PT",
+      "areaFunc": "PFEF",
+      "tema": "Corpo de Bombeiros",
+      "instrucao": "Treino físico funcional",
+      "duracao": 1,
+      "obs": "23 trocou 11",
+      "trocaCom": {}
+    },
+    {
+      "id": "daf6ca61-1a93-40e5-8399-6cf38643577c",
+      "date": "2026-03-23",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "T",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "27df6f9c-06e0-4be1-8f0b-845ccf971cd9",
+      "date": "2026-03-31",
+      "att": {
+        "schf": "P",
+        "m2": "",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "FJ"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "e781f752-9dd3-44b8-b969-2ccfb9a2017f",
+      "date": "2026-04-08",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "",
+        "m23": "P",
+        "m33": "P",
+        "m5": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "14/12",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "dd51d445-d249-4610-91ba-c70ecd68c10d",
+      "date": "2026-04-16",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "FJ",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P",
+        "658a3ddc-5bdc-4f77-83d0-15ff1a3092ae": ""
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "c6ded782-9005-4b03-8701-0db75a909e6c",
+      "date": "2026-04-24",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "348331f6-e0b1-44bf-8a28-c8dc206b4d55",
+      "date": "2026-05-04",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "2f2673b4-3e49-41ed-8dc1-90ba98a5e88f",
+      "date": "2026-05-12",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "TE",
+      "areaFunc": "INCE",
+      "tema": "Ventilação tática",
+      "instrucao": "Vários tipos de ventilação. Caraterização da ventilação e Rácios de ventilação. \n",
+      "duracao": "1",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "f7329880-3fac-43a1-84dc-829cc1cb5dc6",
+      "date": "2026-05-20",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "f7ea5730-5299-4677-bbf2-99fe2f3f84f1",
+      "date": "2026-05-28",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "f80cbfdc-6778-4c53-b0f0-12a6a28c627c",
+      "date": "2026-06-05",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "53390564-c30a-4a61-860f-95c77b300d1b",
+      "date": "2026-06-15",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "98822c10-7fe0-43ac-9d84-0951360f3968",
+      "date": "2026-06-23",
+      "att": {
+        "schf": "P",
+        "m2": "T",
+        "m51": "FJ",
+        "m14": "FJ",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P",
+        "658a3ddc-5bdc-4f77-83d0-15ff1a3092ae": "FJ"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {
+        "m2": "27"
+      }
+    },
+    {
+      "id": "3a41c245-e245-42c6-a254-9b0d5436a3b3",
+      "date": "2026-07-01",
+      "att": {
+        "schf": "P",
+        "m2": "FJ",
+        "m51": "P",
+        "m14": "P",
+        "m23": "FJ",
+        "m33": "FJ",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "32eec7c4-2753-412d-9ba2-ed62f9ee02e3",
+      "date": "2026-07-09",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "FJ",
+        "m14": "FJ",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "04643540-7f48-407d-b9fe-bae50b4a248b",
+      "date": "2026-07-17",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "3daf8b82-ec6b-4656-91de-86894b9cf817",
+      "date": "2026-07-27",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "dcf83175-5908-4673-97f5-306e16c784fa",
+      "date": "2026-08-04",
+      "att": {
+        "schf": "FJ",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "T",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {
+        "m33": "31"
+      }
+    },
+    {
+      "id": "37f8668e-45f4-4cf9-93b8-8f930a39f537",
+      "date": "2026-08-12",
+      "att": {
+        "schf": "FJ",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "6d348095-6e6f-4e16-8821-8b51f339c976",
+      "date": "2026-08-20",
+      "att": {
+        "schf": "FJ",
+        "m2": "P",
+        "m51": "P",
+        "m14": "P",
+        "m23": "P",
+        "m33": "P",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "TP",
+      "areaFunc": "EPH",
+      "tema": "Verificação de equipamento",
+      "instrucao": "Familiarização com o novo monitor de parâmetros vitais Sciller",
+      "duracao": "1",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "b7f1b585-62e1-497d-b701-1865c6162f47",
+      "date": "2026-08-28",
+      "att": {
+        "schf": "FJ",
+        "m2": "P",
+        "m51": "P",
+        "m14": "FJ",
+        "m23": "P",
+        "m33": "P",
+        "m5": "",
+        "m44": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "be36d081-a837-4d28-8899-0fc1b60603d3",
+      "date": "2026-09-07",
+      "att": {
+        "schf": "P",
+        "m2": "P",
+        "m51": "FJ",
+        "m14": "FJ",
+        "m23": "FJ",
+        "m33": "P",
+        "m44": "P",
+        "658a3ddc-5bdc-4f77-83d0-15ff1a3092ae": "P"
+      },
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "TP",
+      "areaFunc": "PFEF",
+      "tema": "Preparação física ou exercício físico",
+      "instrucao": "",
+      "duracao": "1",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "e6006cc8-13b4-48f7-a6fe-74498d89f514",
+      "date": "2026-09-15",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "a4ee84f1-8447-43a7-9f8c-60cb9fc19e73",
+      "date": "2026-09-23",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "1d4c9684-7d32-47ac-994d-6c29593b6212",
+      "date": "2026-10-01",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "daac7b8e-f000-48c0-af9a-6774a46d90ba",
+      "date": "2026-10-09",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "5bdcf706-1469-42eb-a967-6c9e570f100e",
+      "date": "2026-10-19",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "ac38cb2a-4b5d-4f45-a6f2-7a7024bb6185",
+      "date": "2026-10-27",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "bf476a6d-b109-49da-982c-a0de69de1a29",
+      "date": "2026-11-03",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "daafedfa-64bd-4af0-8cfe-3b3ac4fcfa2c",
+      "date": "2026-11-11",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "81d0a083-4c14-4504-bd1d-ae7d53ca9bd5",
+      "date": "2026-11-19",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "bf3bc1a3-bc6f-4abf-9ecf-610258a60119",
+      "date": "2026-11-27",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "ce0d87a2-c0b5-4d44-9d7e-bde129ae290b",
+      "date": "2026-12-03",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "6153b21e-affa-4989-8f21-88e2f46cd680",
+      "date": "2026-12-11",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "3c77b388-36f0-4ca8-95bf-389881f89c6b",
+      "date": "2026-12-21",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    },
+    {
+      "id": "55690cc0-af68-4426-bad1-f965047b40dd",
+      "date": "2026-12-30",
+      "att": {},
+      "ur": "",
+      "sub1": "",
+      "sub2": "",
+      "outros": "",
+      "carater": "",
+      "areaFunc": "",
+      "tema": "",
+      "instrucao": "",
+      "duracao": "",
+      "obs": "",
+      "trocaCom": {}
+    }
+  ],
+  "ocorrencias": [
+    {
+      "id": "76312850-5369-4364-a71e-619af77a17d3",
+      "date": "2026-01-01",
+      "tipo": "EPH",
+      "obs": "",
+      "monthOnly": true,
+      "envolvidos": [],
+      "outrosEnvolvidos": ""
+    },
+    {
+      "id": "bada9ab5-933b-4c86-8adf-025dc9893b63",
+      "date": "2026-08-28",
+      "tipo": "EPH",
+      "obs": "",
+      "envolvidos": [
+        "m2",
+        "m33"
+      ],
+      "outrosEnvolvidos": ""
+    },
+    {
+      "id": "c23992a2-1361-494b-8f4d-81351a3082d0",
+      "date": "2026-08-20",
+      "tipo": "EPH",
+      "obs": "",
+      "envolvidos": [
+        "m2",
+        "m14"
+      ],
+      "outrosEnvolvidos": ""
+    }
+  ],
+  "physFolks": [
+    {
+      "id": "6e373965-184c-4f62-915b-917726debe44",
+      "name": "Bruno Azevedo",
+      "exercises": [
+        {
+          "id": "40168005-ef32-4743-88d0-b6418b303fe8",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "2.08",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "a0c88294-825a-4019-99f4-be112ed408f5",
+          "nome": "Extensões de braços no solo",
+          "repet": "50",
+          "tempo": "57s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "65301fc0-8fc2-440d-af43-57fe544c41cd",
+          "nome": "Flexões do tronco à frente",
+          "repet": "38",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "f3646b93-ca9c-4662-8d24-9d1e5e1f2ec3",
+          "nome": "Barra",
+          "repet": "29",
+          "tempo": "30s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "95c4ee3b-6e26-44c7-b093-42057c92bc75",
+          "nome": "Corrida 100 mt planos",
+          "repet": "",
+          "tempo": "",
+          "date": ""
+        },
+        {
+          "id": "1ab9d6d9-2028-4a6f-af3a-c65e6ce9e32c",
+          "nome": "Corrida 1000 mt planos",
+          "repet": "",
+          "tempo": "",
+          "date": ""
+        },
+        {
+          "id": "f7080c8d-ead8-49b6-a017-bae89eaa4573",
+          "nome": "Bombeiro RG",
+          "repet": "1",
+          "tempo": "1,54",
+          "date": "2026-09-07"
+        },
+        {
+          "id": "99644950-9ce6-414b-b207-9bdd0428da91",
+          "nome": "Bombeiro RG",
+          "repet": "2",
+          "tempo": "4,25",
+          "date": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "49373b2c-a792-4b6f-8043-6528c0957ddc",
+      "name": "Nuno Prazeres",
+      "exercises": [
+        {
+          "id": "79fc428b-a348-412f-a9f1-e77aaa3b22fc",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "1.25",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "f396cb67-c724-41b1-81ad-1dda9c745741",
+          "nome": "Extensões de braços no solo",
+          "repet": "26",
+          "tempo": "33s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "5d25ced1-1a42-4258-bfc9-f67ccc15fe6b",
+          "nome": "Flexões do tronco à frente",
+          "repet": "0",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "7b99ffed-fb3f-4dd5-8fe2-8e6f36f22efe",
+          "nome": "Barra",
+          "repet": "0",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "ff75fc5b-5d3a-4665-b952-412d50d4f0b7",
+          "nome": "Bombeiro RG",
+          "repet": "1",
+          "tempo": "3,46",
+          "date": "2026-09-07"
+        },
+        {
+          "id": "a6fee5da-16ba-4bb4-84ec-fd9886223753",
+          "nome": "Bombeiro RG",
+          "repet": "2",
+          "tempo": "8,12",
+          "date": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "bf7168cb-d8f6-4bfb-8269-8f614b2e73dc",
+      "name": "Carina Medeiros",
+      "exercises": [
+        {
+          "id": "d6e4d797-e5ca-4b01-afdd-5e8fd336d75a",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "1.24",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "e969b0c6-7201-4ed5-bc9a-e94627bccf31",
+          "nome": "Extensões de braços no solo",
+          "repet": "12",
+          "tempo": "36s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "9794b292-7b93-46d3-a369-96d6ce48d235",
+          "nome": "Flexões do tronco à frente",
+          "repet": "18",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "ede548b2-7884-4f39-ab13-2a9b4d1b7e33",
+          "nome": "Barra",
+          "repet": "2",
+          "tempo": "30s",
+          "date": "2026-02-09"
+        }
+      ]
+    },
+    {
+      "id": "4c1abc2e-d402-46db-b8d6-b000f23a5491",
+      "name": "Edgar Freitas",
+      "exercises": [
+        {
+          "id": "13341738-39be-400c-bbad-871738724a75",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "",
+          "tempo": "",
+          "date": ""
+        },
+        {
+          "id": "cf314f6c-c18c-4325-943a-bb2392b69d63",
+          "nome": "Extensões de braços no solo",
+          "repet": "",
+          "tempo": "",
+          "date": ""
+        },
+        {
+          "id": "fa9f3379-feea-4d8f-8631-607acde473e4",
+          "nome": "Flexões do tronco à frente",
+          "repet": "",
+          "tempo": "",
+          "date": ""
+        },
+        {
+          "id": "9af1855a-0df5-4248-b28f-a820ad45eb37",
+          "nome": "Barra",
+          "repet": "",
+          "tempo": "",
+          "date": ""
+        }
+      ]
+    },
+    {
+      "id": "993f99ab-dfa4-481f-aff4-e6b89c7d1c57",
+      "name": "Rúben Santos",
+      "exercises": [
+        {
+          "id": "ed1af1a6-d366-4367-86ee-cd6b29402d2e",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "1.71",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "31b9a60c-2e18-46d8-965c-94b4989afb1e",
+          "nome": "Extensões de braços no solo",
+          "repet": "31",
+          "tempo": "34s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "a3ac12d6-32d6-42f0-b9d5-91ddff5e4789",
+          "nome": "Flexões do tronco à frente",
+          "repet": "31",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "ea63a797-c4a4-4cb6-8589-683f39553593",
+          "nome": "Barra",
+          "repet": "28",
+          "tempo": "",
+          "date": "2026-02-09"
+        }
+      ]
+    },
+    {
+      "id": "be5458d1-9dd5-407f-bdd2-956dcf0412c9",
+      "name": "Fábio Bettencourt",
+      "exercises": [
+        {
+          "id": "faf3f1ab-778d-48de-801f-e7e0969ea187",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "1.75",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "886f8e83-5c57-4102-bcf3-9f46bed41c26",
+          "nome": "Extensões de braços no solo",
+          "repet": "20",
+          "tempo": "52s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "021d75a8-dd15-4974-a4ca-4f33c13741dd",
+          "nome": "Flexões do tronco à frente",
+          "repet": "19",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "ca0a085b-908d-491d-b368-b1de2ff75a3f",
+          "nome": "Barra",
+          "repet": "13",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "47f7cf93-9ce3-406f-a36d-f47f3fec03a1",
+          "nome": "Bombeiro RG",
+          "repet": "1",
+          "tempo": "2,35",
+          "date": "2026-09-07"
+        },
+        {
+          "id": "cc56be5c-4e77-4880-ad03-791835750e2b",
+          "nome": "Bombeiro RG",
+          "repet": "2",
+          "tempo": "5,52",
+          "date": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "e61471e8-1eb7-41d2-9039-6c3eb5a209a2",
+      "name": "Bruno Tavares",
+      "exercises": [
+        {
+          "id": "6fac8ddd-963a-4872-81e9-d085d2a3ee4b",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "1.47",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "5a0d6ac4-f6f8-4880-9e9a-1c1b9792fe7f",
+          "nome": "Extensões de braços no solo",
+          "repet": "30",
+          "tempo": "50s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "e508e93c-607c-452a-a77e-1776d86f8dda",
+          "nome": "Flexões do tronco à frente",
+          "repet": "0",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "c57bca58-80ea-4a2b-a870-3ffbd9ab4d35",
+          "nome": "Barra",
+          "repet": "6",
+          "tempo": "",
+          "date": "2026-02-09"
+        }
+      ]
+    },
+    {
+      "id": "be132a50-5eb5-4075-bf81-cb34a8577dec",
+      "name": "Filipe Duarte",
+      "exercises": [
+        {
+          "id": "0561b092-9008-4a86-a764-3e91e692f334",
+          "nome": "Salto em comprimento sem corrida",
+          "repet": "1.75",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "d3630c3e-61e0-4949-b1ea-6d90f0d649e4",
+          "nome": "Extensões de braços no solo",
+          "repet": "30",
+          "tempo": "40s",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "05ca04c8-e4fd-4462-a117-ad4e796ecd29",
+          "nome": "Flexões do tronco à frente",
+          "repet": "26",
+          "tempo": "",
+          "date": "2026-02-09"
+        },
+        {
+          "id": "0fe117f9-ff8c-49ba-93d5-d4f9dff5ec47",
+          "nome": "Barra",
+          "repet": "19",
+          "tempo": "",
+          "date": "96-2"
+        },
+        {
+          "id": "c8144729-47f6-468e-b736-144d4add020d",
+          "nome": "Bombeiro RG",
+          "repet": "1",
+          "tempo": "2,42",
+          "date": "2026-09-07"
+        },
+        {
+          "id": "df51e66c-d3f7-49de-8cc9-78172b68e4de",
+          "nome": "Bombeiro RG",
+          "repet": "2",
+          "tempo": "6,05",
+          "date": "2026-09-07"
+        }
+      ]
+    },
+    {
+      "id": "1f6fbf01-e8ae-471c-85ee-1d7b3dec7408",
+      "name": "Rodrigo Martins",
+      "exercises": [
+        {
+          "id": "53cadb4b-3c31-4b56-abb3-fac66d7254f9",
+          "nome": "Bombeiro RG",
+          "repet": "1",
+          "tempo": "2,18",
+          "date": "2026-09-07"
+        },
+        {
+          "id": "928ad6be-7f2e-43f4-a743-8321ba9aaac8",
+          "nome": "Bombeiro RG",
+          "repet": "2",
+          "tempo": "6,08",
+          "date": "2026-09-07"
+        }
+      ]
+    }
+  ]
+}
