@@ -415,13 +415,28 @@ function pushToCloud(){
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   }).catch(err=>console.error(err));
 }
+function parseFirebaseConfigInput(raw){
+  let txt = (raw||'').trim();
+  if(!txt) return null;
+  // remove "const firebaseConfig =" / "export const firebaseConfig =" style prefixes
+  txt = txt.replace(/^\s*(export\s+)?(const|let|var)\s+\w+\s*=\s*/,'');
+  // remove trailing semicolon(s)
+  txt = txt.replace(/;\s*$/,'');
+  try{ return JSON.parse(txt); }catch(e){}
+  try{
+    const obj = Function('"use strict"; return (' + txt + ');')();
+    if(obj && typeof obj === 'object') return obj;
+  }catch(e){}
+  return null;
+}
 function openSyncModal(){
   const cfg = getSyncConfig();
   const cfgJson = cfg ? JSON.stringify({apiKey:cfg.apiKey,authDomain:cfg.authDomain,projectId:cfg.projectId,storageBucket:cfg.storageBucket,messagingSenderId:cfg.messagingSenderId,appId:cfg.appId}, null, 1) : '';
   const html = `<div class="overlay" id="syncOverlay"><div class="sheet">
     <div class="sheet-head"><h2>Sincronização em tempo real</h2><button id="closeSync">&times;</button></div>
     <div class="view-hint" style="margin:0 0 12px;">Cola aqui a configuração do teu projeto Firebase (Firebase Console → Definições do projeto → as tuas apps → Configuração do SDK) e escolhe um código de equipa. Todos os aparelhos com o mesmo código partilham os mesmos dados em tempo real.</div>
-    <label style="margin-top:0;">Configuração Firebase (JSON)</label>
+    <label style="margin-top:0;">Configuração Firebase</label>
+    <div class="view-hint" style="margin:0 0 6px;">Podes colar tal e qual como o Firebase te dá, incluindo o "const firebaseConfig = { ... };".</div>
     <textarea id="sy_config" placeholder='{"apiKey":"...","authDomain":"...","projectId":"...","storageBucket":"...","messagingSenderId":"...","appId":"..."}' style="min-height:120px;font-family:var(--font-mono);font-size:12px;">${escapeHtml(cfgJson)}</textarea>
     <label>Código de equipa</label>
     <input type="text" id="sy_team" value="${cfg?escapeAttr(cfg.teamCode):''}" placeholder="ex: ALFA2026">
@@ -432,9 +447,8 @@ function openSyncModal(){
   document.getElementById('closeSync').addEventListener('click', closeModal);
   document.getElementById('syncOverlay').addEventListener('click', e=>{ if(e.target.id==='syncOverlay') closeModal(); });
   document.getElementById('sy_save').addEventListener('click', ()=>{
-    let parsed;
-    try{ parsed = JSON.parse(document.getElementById('sy_config').value); }
-    catch(e){ alert('A configuração não é um JSON válido.'); return; }
+    const parsed = parseFirebaseConfigInput(document.getElementById('sy_config').value);
+    if(!parsed){ alert('Não consegui ler essa configuração. Cola exatamente o bloco de código do Firebase (pode incluir "const firebaseConfig = { ... };").'); return; }
     const teamCode = document.getElementById('sy_team').value.trim().replace(/[^A-Za-z0-9_-]/g,'');
     if(!teamCode){ alert('Indica um código de equipa.'); return; }
     if(!parsed.apiKey || !parsed.projectId){ alert('Faltam campos na configuração (apiKey / projectId).'); return; }
