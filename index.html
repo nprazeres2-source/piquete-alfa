@@ -485,26 +485,33 @@ function fmtDateFull(iso){
 }
 function memberById(id){ return state.members.find(m=>m.id===id); }
 function activeMembers(){ return state.members.filter(m=>m.ativo!==false); }
-function sessionsSorted(){ return [...state.sessions].sort((a,b)=>a.date.localeCompare(b.date)); }
+function yearSessions(){ return state.sessions.filter(s=>String(s.date).startsWith(String(state.year))); }
+function sessionsSorted(){ return yearSessions().sort((a,b)=>a.date.localeCompare(b.date)); }
+function availableYears(){
+  const set = new Set(state.sessions.map(s=>Number(String(s.date).slice(0,4))).filter(Boolean));
+  set.add(Number(state.year));
+  set.add(Math.max(...set)+1);
+  return Array.from(set).sort((a,b)=>a-b);
+}
 function isFuture(iso){ return iso > new Date().toISOString().slice(0,10); }
 function sessionIsFilled(s){ return !!(s.areaFunc || s.instrucao || Object.values(s.att||{}).some(v=>v)); }
 
 function hoursDoneByMember(memberId){
   let total=0;
-  state.sessions.forEach(s=>{
+  yearSessions().forEach(s=>{
     if(s.att && s.att[memberId]==='P' && s.duracao){ total += Number(s.duracao)||0; }
   });
   return total;
 }
 function countByStatus(memberId, status){
-  return state.sessions.filter(s=>s.att && s.att[memberId]===status).length;
+  return yearSessions().filter(s=>s.att && s.att[memberId]===status).length;
 }
 function totalInstrucaoHoras(){
-  return state.sessions.reduce((sum,s)=> sum + (s.duracao? Number(s.duracao):0), 0);
+  return yearSessions().reduce((sum,s)=> sum + (s.duracao? Number(s.duracao):0), 0);
 }
 function areaFuncStats(){
   const stats = {};
-  state.sessions.forEach(s=>{
+  yearSessions().forEach(s=>{
     if(!s.areaFunc) return;
     if(!stats[s.areaFunc]) stats[s.areaFunc] = {count:0,hours:0};
     stats[s.areaFunc].count++;
@@ -515,7 +522,7 @@ function areaFuncStats(){
 function ocorrenciasByTipo(){
   const stats = {};
   Object.keys(OCOR_TIPOS).forEach(t=>stats[t]=0);
-  state.ocorrencias.forEach(o=>{ stats[o.tipo] = (stats[o.tipo]||0) + 1; });
+  state.ocorrencias.filter(o=>String(o.date).startsWith(String(state.year))).forEach(o=>{ stats[o.tipo] = (stats[o.tipo]||0) + 1; });
   return stats;
 }
 
@@ -538,16 +545,19 @@ document.getElementById('fabBtn').addEventListener('click', ()=>{
   else if(activeTab==='fisica') openFisicaAddPersonModal();
 });
 
+const APP_FOOTER = `<div style="text-align:center;padding:26px 20px 10px;font-size:11.5px;color:var(--grey-badge);">&copy; Nuno Prazeres · nprazeres2@gmail.com</div>`;
 function render(){
   document.getElementById('teamNameDisplay').textContent = state.team;
   document.getElementById('yearDisplay').textContent = state.year;
   const view = document.getElementById('view');
-  if(activeTab==='registo') view.innerHTML = renderRegisto();
-  if(activeTab==='instrucoes') view.innerHTML = renderInstrucoes();
-  if(activeTab==='equipa') view.innerHTML = renderEquipa();
-  if(activeTab==='ocorrencias') view.innerHTML = renderOcorrencias();
-  if(activeTab==='fisica') view.innerHTML = renderFisica();
-  if(activeTab==='resumo') view.innerHTML = renderResumo();
+  let html = '';
+  if(activeTab==='registo') html = renderRegisto();
+  if(activeTab==='instrucoes') html = renderInstrucoes();
+  if(activeTab==='equipa') html = renderEquipa();
+  if(activeTab==='ocorrencias') html = renderOcorrencias();
+  if(activeTab==='fisica') html = renderFisica();
+  if(activeTab==='resumo') html = renderResumo();
+  view.innerHTML = html + APP_FOOTER;
   attachViewHandlers();
 }
 
@@ -583,8 +593,57 @@ function renderRegisto(){
   return `
     <div class="view-title">Registo de serviço</div>
     <div class="view-hint">${list.length} datas de turno em ${state.year}. Toca numa data para registar presenças e instrução.</div>
-    <div class="section">${items}</div>
+    <div class="section">
+      <div class="row2" style="margin-bottom:12px;align-items:center;">
+        <select id="yearSelect" style="flex:1;">${availableYears().map(y=>`<option value="${y}" ${y===Number(state.year)?'selected':''}>${y}</option>`).join('')}</select>
+        <button class="btn btn-soft" id="btnGerarDatas" style="flex:2;">Gerar datas de ${state.year}</button>
+      </div>
+      ${items || `<div class="empty"><div class="ic">—</div>Ainda sem datas em ${state.year}. Usa "Gerar datas" ou o botão "+" para adicionar dias.</div>`}
+    </div>
   `;
+}
+
+function openGerarDatasModal(){
+  const y = Number(state.year);
+  const existing = yearSessions().map(s=>s.date).sort();
+  const last = existing.length ? existing[existing.length-1] : null;
+  const html = `<div class="overlay" id="genOverlay"><div class="sheet">
+    <div class="sheet-head"><h2>Gerar datas de ${y}</h2><button id="closeGen">&times;</button></div>
+    <div class="view-hint" style="margin:0 0 10px;">Cria os dias de serviço de ${y} a partir de uma data inicial, repetindo de X em X dias até à data final. Dias que já existam não são duplicados e nenhum registo existente é alterado. Podes depois acrescentar ou ajustar dias avulsos com o botão "+".</div>
+    <label style="margin-top:0;">Primeiro dia de serviço</label>
+    <input type="date" id="g_start" value="${y}-01-01">
+    <label>Repetir de quantos em quantos dias</label>
+    <input type="number" id="g_step" min="1" value="8">
+    <label>Até</label>
+    <input type="date" id="g_end" value="${y}-12-31">
+    <div class="meta" id="g_preview" style="margin-top:10px;"></div>
+    <div class="sheet-actions"><button class="btn btn-primary btn-block" id="g_save">Gerar datas</button></div>
+  </div></div>`;
+  document.getElementById('modalRoot').innerHTML = html;
+  const dates = ()=>{
+    const start = document.getElementById('g_start').value, end = document.getElementById('g_end').value;
+    const step = Math.max(1, Number(document.getElementById('g_step').value)||0);
+    if(!start || !end) return [];
+    const out = []; const d = new Date(start+'T00:00:00Z'); const e = new Date(end+'T00:00:00Z');
+    while(d<=e && out.length<400){ out.push(d.toISOString().slice(0,10)); d.setUTCDate(d.getUTCDate()+step); }
+    return out;
+  };
+  const refresh = ()=>{
+    const list = dates(); const have = new Set(state.sessions.map(s=>s.date));
+    const novas = list.filter(x=>!have.has(x)).length;
+    document.getElementById('g_preview').textContent = list.length ? `${novas} novas datas (de ${list.length}), de ${fmtDateFull(list[0])} a ${fmtDateFull(list[list.length-1])}.` : '';
+  };
+  ['g_start','g_step','g_end'].forEach(id=>document.getElementById(id).addEventListener('input', refresh));
+  refresh();
+  document.getElementById('closeGen').addEventListener('click', closeModal);
+  document.getElementById('genOverlay').addEventListener('click', e=>{ if(e.target.id==='genOverlay') closeModal(); });
+  document.getElementById('g_save').addEventListener('click', ()=>{
+    const list = dates(); const have = new Set(state.sessions.map(s=>s.date));
+    const novas = list.filter(x=>!have.has(x));
+    if(!novas.length){ alert('Não há datas novas para criar.'); return; }
+    novas.forEach(d=>state.sessions.push(blankSession(d)));
+    save(); closeModal(); render(); toast(novas.length+' datas criadas');
+  });
 }
 
 function openSessionModal(sessionId){
@@ -611,8 +670,9 @@ function openSessionModal(sessionId){
   const html = `
   <div class="overlay" id="sessOverlay">
     <div class="sheet">
-      <div class="sheet-head"><h2>${fmtDateFull(s.date)}</h2><button id="closeSess">&times;</button></div>
-      <label style="margin-top:0;">Presenças e trocas</label>
+      <div class="sheet-head"><h2>${isNew?'Novo dia de serviço':fmtDateFull(s.date)}</h2><button id="closeSess">&times;</button></div>
+      ${isNew? `<label style="margin-top:0;">Data</label><input type="date" id="f_sdate" value="${s.date}">` : ''}
+      <label ${isNew?'':'style="margin-top:0;"'}>Presenças e trocas</label>
       <div class="card" style="padding:4px 12px;">${memberRows}</div>
       <div class="view-hint" style="margin:10px 2px 0;">A instrução deste dia (área, tema, duração, etc.) é registada no separador "Instruções".</div>
 
@@ -637,8 +697,16 @@ function openSessionModal(sessionId){
     document.querySelectorAll('.troca-input').forEach(inp=>{
       if(att[inp.dataset.member]==='T') trocaCom[inp.dataset.member] = inp.value;
     });
-    const updated = { ...s, att, trocaCom };
-    const idx = state.sessions.findIndex(x=>x.id===s.id);
+    let updated = { ...s, att, trocaCom };
+    if(isNew){
+      const dateInput = document.getElementById('f_sdate').value;
+      if(!dateInput){ alert('Indica a data.'); return; }
+      updated.date = dateInput;
+      const existing = state.sessions.find(x=>x.date===dateInput);
+      if(existing){ updated = {...existing, att, trocaCom}; }
+      state.year = Number(dateInput.slice(0,4));
+    }
+    const idx = state.sessions.findIndex(x=>x.id===updated.id);
     if(idx>=0) state.sessions[idx] = updated; else state.sessions.push(updated);
     save(); closeModal(); render(); toast('Registo guardado');
   });
@@ -743,6 +811,7 @@ function openInstrucaoModal(sessionId){
     if(!fields.areaFunc){ alert('Escolhe uma área funcional.'); return; }
     if(isNew){
       const date = document.getElementById('i_date').value;
+      state.year = Number(date.slice(0,4)) || state.year;
       let target = state.sessions.find(x=>x.date===date);
       if(target){ Object.assign(target, fields); }
       else { target = Object.assign(blankSession(date), fields); state.sessions.push(target); }
@@ -844,7 +913,7 @@ function openNewMemberModal(){
    TAB: OCORRÊNCIAS
    ========================================================= */
 function renderOcorrencias(){
-  const list = [...state.ocorrencias].sort((a,b)=>b.date.localeCompare(a.date));
+  const list = state.ocorrencias.filter(o=>String(o.date).startsWith(String(state.year))).sort((a,b)=>b.date.localeCompare(a.date));
   const items = list.map(o=>{
     const names = (o.envolvidos||[]).map(id=>{ const m=memberById(id); return m? m.name : id; });
     if(o.outrosEnvolvidos) names.push(o.outrosEnvolvidos);
@@ -1104,7 +1173,7 @@ function bindCmpSelect(){
    TAB: RESUMO
    ========================================================= */
 function renderResumo(){
-  const filled = state.sessions.filter(sessionIsFilled).length;
+  const filled = yearSessions().filter(sessionIsFilled).length;
   const totalHoras = totalInstrucaoHoras();
   const areaStats = areaFuncStats();
   const syncCfg = getSyncConfig();
@@ -1116,7 +1185,7 @@ function renderResumo(){
     <div class="view-title">Resumo anual</div>
     <div class="section">
       <div class="stat-grid">
-        <div class="stat"><div class="num">${filled}/${state.sessions.length}</div><div class="lbl">Serviços registados</div></div>
+        <div class="stat"><div class="num">${filled}/${yearSessions().length}</div><div class="lbl">Serviços registados</div></div>
         <div class="stat"><div class="num">${totalHoras}h</div><div class="lbl">Horas de instrução</div></div>
       </div>
 
@@ -1178,6 +1247,10 @@ function attachViewHandlers(){
   document.querySelectorAll('.sess[data-pid]').forEach(el=>{
     el.addEventListener('click', ()=>openFisicaPersonModal(el.dataset.pid));
   });
+  const ys = document.getElementById('yearSelect');
+  if(ys) ys.addEventListener('change', ()=>{ state.year = Number(ys.value); save(); render(); });
+  const bg = document.getElementById('btnGerarDatas');
+  if(bg) bg.addEventListener('click', openGerarDatasModal);
   const bc = document.getElementById('btnComparar');
   if(bc) bc.addEventListener('click', openComparaModal);
   document.querySelectorAll('.sess[data-oid]').forEach(el=>{
