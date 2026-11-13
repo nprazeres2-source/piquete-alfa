@@ -671,15 +671,16 @@ function openSessionModal(sessionId){
   <div class="overlay" id="sessOverlay">
     <div class="sheet">
       <div class="sheet-head"><h2>${isNew?'Novo dia de serviço':fmtDateFull(s.date)}</h2><button id="closeSess">&times;</button></div>
-      ${isNew? `<label style="margin-top:0;">Data</label><input type="date" id="f_sdate" value="${s.date}">` : ''}
-      <label ${isNew?'':'style="margin-top:0;"'}>Presenças e trocas</label>
+      <label style="margin-top:0;">Data do serviço</label><input type="date" id="f_sdate" value="${s.date}">
+      <label>Presenças e trocas</label>
       <div class="card" style="padding:4px 12px;">${memberRows}</div>
       <div class="view-hint" style="margin:10px 2px 0;">A instrução deste dia (área, tema, duração, etc.) é registada no separador "Instruções".</div>
 
       <div class="sheet-actions">
         <button class="btn btn-primary btn-block" id="saveSess">Guardar</button>
       </div>
-      ${!isNew? `<div class="sheet-actions"><button class="btn btn-ghost btn-block" id="clearSess">Limpar presenças deste dia</button></div>`:''}
+      ${!isNew? `<div class="sheet-actions"><button class="btn btn-ghost btn-block" id="clearSess">Limpar presenças deste dia</button></div>
+      <div class="sheet-actions"><button class="btn btn-danger btn-block" id="delSess">Eliminar este dia</button></div>`:''}
     </div>
   </div>`;
   document.getElementById('modalRoot').innerHTML = html;
@@ -698,14 +699,17 @@ function openSessionModal(sessionId){
       if(att[inp.dataset.member]==='T') trocaCom[inp.dataset.member] = inp.value;
     });
     let updated = { ...s, att, trocaCom };
+    const dateInput = document.getElementById('f_sdate').value;
+    if(!dateInput){ alert('Indica a data.'); return; }
+    const existing = state.sessions.find(x=>x.date===dateInput && x.id!==s.id);
     if(isNew){
-      const dateInput = document.getElementById('f_sdate').value;
-      if(!dateInput){ alert('Indica a data.'); return; }
-      updated.date = dateInput;
-      const existing = state.sessions.find(x=>x.date===dateInput);
       if(existing){ updated = {...existing, att, trocaCom}; }
-      state.year = Number(dateInput.slice(0,4));
+      else updated.date = dateInput;
+    } else {
+      if(existing){ alert('Já existe um dia de serviço em '+fmtDateFull(dateInput)+'. Escolhe outra data ou elimina primeiro esse dia.'); return; }
+      updated.date = dateInput;
     }
+    state.year = Number(dateInput.slice(0,4));
     const idx = state.sessions.findIndex(x=>x.id===updated.id);
     if(idx>=0) state.sessions[idx] = updated; else state.sessions.push(updated);
     save(); closeModal(); render(); toast('Registo guardado');
@@ -715,6 +719,11 @@ function openSessionModal(sessionId){
       if(!confirm('Limpar as presenças e trocas deste dia? A instrução registada mantém-se.')) return;
       s.att = {}; s.trocaCom = {};
       save(); closeModal(); render(); toast('Presenças limpas');
+    });
+    document.getElementById('delSess').addEventListener('click', ()=>{
+      if(!confirm('Eliminar o dia '+fmtDateFull(s.date)+'? Apaga também as presenças e a instrução registadas nesse dia.')) return;
+      state.sessions = state.sessions.filter(x=>x.id!==s.id);
+      save(); closeModal(); render(); toast('Dia eliminado');
     });
   }
 }
